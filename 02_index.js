@@ -1,7 +1,7 @@
 let arr=["when_<wbr>we_<wbr>talk_<wbr>about_<wbr>motivating_<wbr>others_<wbr>the_<wbr>justification_<wbr>is_<wbr>the_<wbr>end_<wbr>result_<wbr>that_<wbr>either_<wbr>we_<wbr>want_<wbr>to_<wbr>avoid_<wbr>the_<wbr>pain_<wbr>or_<wbr>go_<wbr>towards_<wbr>pleasure_<wbr>or_<wbr>what_<wbr>we_<wbr>want_<wbr>to_<wbr>get_<wbr>the_<wbr>person_<wbr>to_<wbr>do_<wbr>how_<wbr>we_<wbr>achieve_<wbr>the_<wbr>end_<wbr>result_<wbr>are_<wbr>our_<wbr>alternatives_<wbr>but_<wbr>a_<wbr>good_<wbr>manager_<wbr>would_<wbr>think_<wbr>the_<wbr>following_<wbr>also_<wbr>action","when_<wbr>we_<wbr>talk_<wbr>about_<wbr>motivating_<wbr>others_<wbr>the_<wbr>justification_<wbr>is_<wbr>the_<wbr>end_<wbr>result_<wbr>either_<wbr>we_<wbr>want_<wbr>to_<wbr>avoid_<wbr>the_<wbr>pain_<wbr>or_<wbr>go_<wbr>towards_<wbr>pleasure_<wbr>or_<wbr>what_<wbr>we_<wbr>want_<wbr>to_<wbr>get_<wbr>the_<wbr>person_<wbr>to_<wbr>do_<wbr>how_<wbr>we_<wbr>achieve_<wbr>the_<wbr>end_<wbr>result_<wbr>are_<wbr>our_<wbr>alternatives_<wbr>but_<wbr>a_<wbr>good_<wbr>manager_<wbr>would_<wbr>think_<wbr>of_<wbr>the_<wbr>following_<wbr>also_<wbr>will_<wbr>the_<wbr>action_<wbr>guarantee_<wbr>the_<wbr>consequence_<wbr>what_<wbr>about_<wbr>other_<wbr>intended_<wbr>consequences_<wbr>this_<wbr>requires_<wbr>certain_<wbr>experience","business_<wbr>meetings_<wbr>and_<wbr>professional_<wbr>recordings_<wbr>can_<wbr>contain_<wbr>sensitive_<wbr>data_<wbr>so_<wbr>security_<wbr>is_<wbr>something_<wbr>a_<wbr>transcription_<wbr>company_<wbr>should_<wbr>not_<wbr>overlook_<wbr>when_<wbr>providing_<wbr>services_<wbr>companies_<wbr>should_<wbr>therefore_<wbr>follow_<wbr>the_<wbr>various_<wbr>laws_<wbr>and_<wbr>industry_<wbr>best_<wbr>practice_<wbr>especially_<wbr>so_<wbr>when_<wbr>serving_<wbr>law_<wbr>firms_<wbr>government_<wbr>agencies_<wbr>or_<wbr>courts_<wbr>medical_<wbr>transcription_<wbr>specifically_<wbr>is_<wbr>governed_<wbr>which_<wbr>elaborates_<wbr>data_<wbr>security_<wbr>practices_<wbr>transcription_<wbr>security_<wbr>includes_<wbr>maintaining_<wbr>confidentiality_<wbr>of_<wbr>the_<wbr>information" ]
 
 let arr1=[56,69,64]
-let arr2=[60,90,120]
+let arr2=[60,70,80]
 let p
 let pWord
 let time
@@ -16,6 +16,7 @@ let wr=0
 let mx=0
 let select=false
 let typedChar=0
+let completed=0
 let content=document.getElementById("content")
 const clk=(level)=>{
     select=true
@@ -44,7 +45,7 @@ const timer=(time)=>{
         else{
             document.getElementById("time").style.color="green"
         }
-        if(time==0){
+        if(completed==1 || time==0){
             // y=new Date().getTime()
             // final();
             n=p.length
@@ -57,9 +58,6 @@ const timer=(time)=>{
     },1000)
 }
 
-const restart=()=>{
-
-}
 
 // content.style.fontSize="25px"
 // content.style.color="#a69d9d"
@@ -67,18 +65,23 @@ const restart=()=>{
 
 
 const final=()=>{
-document.getElementById("result").style.display="grid"
-document.getElementById("heading").style.margin="1px"
-
+    completed=1
+    console.log(typedChar,typedWord,wrong,wr)
+    setTimeout(()=>{
+        document.getElementById("result").style.display="grid"
+        document.getElementById("heading").style.margin="1px"
     let tym=(y-x)/60000
+
+    let oas=document.getElementById("accuracy")
+    oas.innerHTML=`Overall Speed : ${(typedWord/tym).toFixed(2)} WPM`
     let speed=((typedWord-wr)/tym).toFixed(2)
     if(typedWord==0){
         speed =0
     }
-    let rs=document.getElementById("speed")
+    let rs=document.getElementById("rspeed")
     rs.innerHTML=`Speed (correct words) : ${speed} WPM`
     
-    let ac=document.getElementById("accuracy")
+    let ac=document.getElementById("speed")
     let accuracy=((typedChar - wrong)*100/(typedChar)).toFixed(2)
     ac.innerHTML=`Accuracy : ${accuracy}%`
 
@@ -95,6 +98,7 @@ document.getElementById("heading").style.margin="1px"
 
     let rm=document.getElementById("remark")
     rm.innerHTML=`Remark : ${remark}`
+},601)
 
     // document.getElementById("result").style.visibility="visible"
 }
@@ -105,10 +109,14 @@ let rr
 let spd=0
 let keyy=false
 const ff=()=>{
-    setInterval(()=>{
+   let gg= setInterval(()=>{
+        if(completed==0){
         let rs=document.getElementById("rspeed")
-    rs.innerHTML=`Real Time Speed : 0.0 WPM`
-    },800)
+    rs.innerHTML=`Real Time Speed : 0.0 WPM`}
+    else{
+        clearInterval(gg)
+    }
+    },600)
     
 }
 // document.addEventListener("keyup",ff)
@@ -148,7 +156,6 @@ const myFunc=(e)=>{
         let k=e.key
     let z=k
     if(k==' '){
-        typedWord++
         z='Space'
     }
     
@@ -180,6 +187,7 @@ const myFunc=(e)=>{
         if(p[n]=='_'){
             n=n+5
             prev=prev+`<wbr>`
+            typedWord++
         }
         n++
     }
@@ -192,7 +200,7 @@ const myFunc=(e)=>{
         
     }  
     
-    if(n>=p.length){
+    if(n>=p.length && completed==0){
         y=new Date().getTime()
         final()
     }
@@ -214,7 +222,6 @@ const jj=(e)=>{
     }
     let z=k
     if(k==' '){
-        typedWord++
          z='Space'
     }
     if(p[n]==' ' || p[n]=='_'){
@@ -242,7 +249,9 @@ const jj=(e)=>{
         realTimeSpeed();
         clr="blk"
         if(p[n]=='_'){
+            prev=prev+`<wbr>`
             n=n+5
+            typedWord++
         }
         n++
     }
