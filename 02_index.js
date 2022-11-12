@@ -214,6 +214,7 @@ const jj=(e)=>{
     }
     let z=k
     if(k==' '){
+        typedWord++
          z='Space'
     }
     if(p[n]==' ' || p[n]=='_'){
