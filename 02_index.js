@@ -66,7 +66,7 @@ const timer=(time)=>{
 
 const final=()=>{
     completed=1
-    console.log(typedChar,typedWord,wrong,wr)
+//     console.log(typedChar,typedWord,wrong,wr)
     setTimeout(()=>{
         document.getElementById("result").style.display="grid"
         document.getElementById("heading").style.margin="1px"
